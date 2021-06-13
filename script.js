@@ -6,7 +6,8 @@ var block = document.querySelectorAll('.block'),
 var sheetAmount = 3
 
 
-var controller = document.querySelectorAll('.controller-block')
+var controller = document.querySelectorAll('.controller-block'),
+    toggleBtn = document.querySelectorAll('.toggle-btn')
 
 function updateBlock(b) {
     for (let i = 0; i < b; i++) {
@@ -14,27 +15,23 @@ function updateBlock(b) {
         console.log('updated');
         if (block.length == b) break;
     }
-    let bool = true;
-    if (block.length == b) {
-        bool = true;
-    }else{
-        bool = false
-    }
     console.log(block);
 
-    let hoverItem = hover(block,bool);
 
-    if (hoverItem) {
-        console.log(1);
-        hover(block,bool)
-    }
+
+    hover(block)
+
 
 }
-function hover(blockForEvent,bool) {
+function hover(blockForEvent) {
+    let toggleOrActive = "this.classList.add('active')"
+
     for (let i = 0; i < blockForEvent.length; i++) {
         blockForEvent[i].addEventListener('mouseover', function () {
-    
-            this.classList.add('active')
+                hoverAdd(this)
+            let b = toggleOrActive
+            console.log(b);
+
             active = document.querySelectorAll('.active')
             amount = active.length.toString()
             inp[0].innerHTML = amount
@@ -43,6 +40,18 @@ function hover(blockForEvent,bool) {
     }
     return true;
 }
+function hoverToggle(el) {
+    el.classList.toggle('active')
+    return true
+}
+function hoverAdd(el) {
+    el.classList.add('active')
+    return true
+
+}
+
+
+
 hover(block,true)
 function controllerShow() {
     sheetAmount = sheetAmount.toString()
@@ -170,3 +179,10 @@ function removeBlock(howMuchRemove){
     }
 
 }
+
+function clean() {
+    for (let i = 0; i < block.length; i++) {
+        block[i].classList.remove('active')
+    }
+}
+
